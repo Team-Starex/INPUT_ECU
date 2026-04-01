@@ -7,7 +7,8 @@
 #include "IfxStm.h"
 #include "Bsp.h"
 #include "IfxPort.h"
-#include "Drv_AdcInput.h"
+#include "App_InputEcu.h"
+#include "If_InputEcu.h"
 
 IfxCpu_syncEvent cpuSyncEvent = 0;
 
@@ -16,25 +17,32 @@ IfxCpu_syncEvent cpuSyncEvent = 0;
 #define LED_PORT                (&MODULE_P10)
 #define LED_PIN                 (2U)
 
-/* 홀센서 측정 범위 (hex 기준) */
-#define HALL_RAW_MIN            (0x780U)
-#define HALL_RAW_MAX            (0x850U)
+#define TASK_BASE_PERIOD_MS     (10U)
+#define TASK_100MS_TICKS        (10U)
+
+/* 브레이크 raw 범위 (16진수 기준) */
+#define BRAKE_RAW_MIN           (0x790U)
+#define BRAKE_RAW_MAX           (0x850U)
 
 /* 소프트웨어 PWM */
 #define PWM_PERIOD_STEPS        (100U)
-#define PWM_STEP_US             (200U)
+#define PWM_STEP_US             (100U)
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
-volatile uint16 g_hallRaw = 0U;
-volatile uint16 g_pwmDuty = 0U;
+volatile uint16 g_task10msCnt   = 0U;
+volatile uint16 g_task100msCnt  = 0U;
+
+/* 디버그용 추가 변수 */
+volatile uint16 g_brakeRaw      = 0U;
+volatile uint16 g_ledDuty       = 0U;
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
 static void InitLed(void);
-static uint16 MapHallToDuty(uint16 raw);
+static uint16 MapBrakeToDuty(uint16 raw);
 static void RunLedPwm(uint16 duty);
 /*********************************************************************************************************************/
 
@@ -42,6 +50,8 @@ static void RunLedPwm(uint16 duty);
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 void core0_main(void)
 {
+    const If_InputEcuData_t* inputData;
+
     IfxCpu_enableInterrupts();
 
     IfxScuWdt_disableCpuWatchdog(IfxScuWdt_getCpuWatchdogPassword());
@@ -51,21 +61,25 @@ void core0_main(void)
     IfxCpu_waitEvent(&cpuSyncEvent, 1);
 
     InitLed();
-    Drv_AdcInput_Init();
+    App_InputEcu_Init();
 
     while (1)
     {
-        Drv_AdcInput_Task();
+        App_InputEcu_Task_10ms();
+        g_task10msCnt++;
 
-        /* 엑셀 홀센서 테스트 */
-        g_hallRaw = Drv_AdcInput_GetFiltered(DRV_ADC_ACCEL);
+        inputData = If_InputEcu_GetData();
+        g_brakeRaw = inputData->brake_raw;
+        g_ledDuty = MapBrakeToDuty(g_brakeRaw);
 
-        /* 브레이크 홀센서 테스트하려면 위 줄을 아래처럼 바꾸면 됨 */
-        /* g_hallRaw = Drv_AdcInput_GetFiltered(DRV_ADC_BRAKE); */
+        /* 10ms 주기 안에서 LED 밝기 제어 */
+        RunLedPwm(g_ledDuty);
 
-        g_pwmDuty = MapHallToDuty(g_hallRaw);
-
-        RunLedPwm(g_pwmDuty);
+        if ((g_task10msCnt % TASK_100MS_TICKS) == 0U)
+        {
+            App_InputEcu_Task_100ms();
+            g_task100msCnt++;
+        }
     }
 }
 
@@ -80,22 +94,23 @@ static void InitLed(void)
 }
 
 /*********************************************************************************************************************/
-static uint16 MapHallToDuty(uint16 raw)
+static uint16 MapBrakeToDuty(uint16 raw)
 {
     uint32 value;
 
-    if (raw <= HALL_RAW_MIN)
+    if (raw <= BRAKE_RAW_MIN)
     {
         return 0U;
     }
-    else if (raw >= HALL_RAW_MAX)
+    else if (raw >= BRAKE_RAW_MAX)
     {
         return PWM_PERIOD_STEPS;
     }
     else
     {
-        value = ((uint32)(raw - HALL_RAW_MIN) * PWM_PERIOD_STEPS) /
-                (uint32)(HALL_RAW_MAX - HALL_RAW_MIN);
+        value = ((uint32)(raw - BRAKE_RAW_MIN) * PWM_PERIOD_STEPS) /
+                (uint32)(BRAKE_RAW_MAX - BRAKE_RAW_MIN);
+
         return (uint16)value;
     }
 }
@@ -123,3 +138,5 @@ static void RunLedPwm(uint16 duty)
 
         waitTime(IfxStm_getTicksFromMicroseconds(BSP_DEFAULT_TIMER, PWM_STEP_US));
     }
+}
+/*********************************************************************************************************************/
