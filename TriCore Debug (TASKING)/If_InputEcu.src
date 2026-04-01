@@ -1,0 +1,869 @@
+	; Module start
+	.compiler_version	"TASKING VX-toolset for AURIX Development Studio (non-commercial): C compiler v1.1r8 Build 22011964"
+	.compiler_invocation	"ctc -f cc3460a --dep-file=If_InputEcu.d -c99 --fp-model=3cflnrSTz -D__CPU__=tc27xd -D__CPU_TC27XD__ --core=tc1.6.x --fp-model=+float -D__CPU__=tc27xd -IC:\\\\test\\\\tc275_input_ecu -IC:\\\\test\\\\tc275_input_ecu\\\\Configurations -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Infra -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Infra\\\\Platform -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Infra\\\\Platform\\\\Tricore -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Infra\\\\Platform\\\\Tricore\\\\Compilers -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Infra\\\\Sfr -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Infra\\\\Sfr\\\\TC27D -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Infra\\\\Sfr\\\\TC27D\\\\_Reg -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Service -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Service\\\\CpuGeneric -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Service\\\\CpuGeneric\\\\SysSe -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Service\\\\CpuGeneric\\\\SysSe\\\\Bsp -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\Service\\\\CpuGeneric\\\\_Utilities -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Cpu -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Cpu\\\\CStart -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Cpu\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Cpu\\\\Trap -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Gtm -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Gtm\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Mtu -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Mtu\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Multican -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Multican\\\\Can -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Multican\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Port -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Port\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Scu -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Scu\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Src -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Src\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Stm -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Stm\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Vadc -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Vadc\\\\Adc -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Vadc\\\\Std -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\_Impl -IC:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\_PinMap -g2 -w544 -w557 -t4 --language=+volatile -N0 -O0 -Y0 -Z0 --compact-max-size=200 --misrac-version=2012 -o If_InputEcu.src ../If_InputEcu.c"
+	.compiler_name		"ctc"
+	;source	'../If_InputEcu.c'
+
+	
+$TC16X
+	
+	.sdecl	'.text.If_InputEcu.If_InputEcu_Init',code,cluster('If_InputEcu_Init')
+	.sect	'.text.If_InputEcu.If_InputEcu_Init'
+	.align	2
+	
+	.global	If_InputEcu_Init
+; Function If_InputEcu_Init
+.L10:
+If_InputEcu_Init:	.type	func
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L77:
+	mov	d15,#0
+.L78:
+	st.b	[a15],d15
+.L79:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L80:
+	mov	d15,#0
+.L81:
+	st.h	[a15]2,d15
+.L82:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L83:
+	mov	d15,#0
+.L84:
+	st.h	[a15]4,d15
+.L85:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L86:
+	mov	d15,#0
+.L87:
+	st.h	[a15]6,d15
+.L88:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L89:
+	mov	d15,#0
+.L90:
+	st.h	[a15]8,d15
+.L91:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L92:
+	mov	d15,#0
+.L93:
+	st.h	[a15]10,d15
+.L94:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L95:
+	mov	d15,#0
+.L96:
+	st.h	[a15]12,d15
+.L97:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L98:
+	mov	d15,#0
+.L99:
+	st.h	[a15]14,d15
+.L100:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L101:
+	mov	d15,#0
+.L102:
+	st.h	[a15]16,d15
+.L103:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L104:
+	mov	d15,#0
+.L105:
+	st.h	[a15]18,d15
+.L106:
+	ret
+.L43:
+	
+__If_InputEcu_Init_function_end:
+	.size	If_InputEcu_Init,__If_InputEcu_Init_function_end-If_InputEcu_Init
+.L25:
+	; End of function
+	
+	.sdecl	'.text.If_InputEcu.If_InputEcu_Task',code,cluster('If_InputEcu_Task')
+	.sect	'.text.If_InputEcu.If_InputEcu_Task'
+	.align	2
+	
+	.global	If_InputEcu_Task
+; Function If_InputEcu_Task
+.L12:
+If_InputEcu_Task:	.type	func
+	mov	d4,#0
+	call	Drv_AdcInput_GetFiltered
+.L56:
+	mov	d15,d2
+.L58:
+	mov	d4,#1
+	call	Drv_AdcInput_GetFiltered
+.L57:
+	mov	d8,d2
+.L60:
+	mov	d4,#2
+	call	Drv_AdcInput_GetFiltered
+.L59:
+	mov	d9,d2
+.L62:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L111:
+	st.h	[a15]14,d15
+.L112:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L113:
+	st.h	[a15]16,d8
+.L114:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L115:
+	st.h	[a15]18,d9
+.L116:
+	call	Drv_Button_GetPressedEvent
+.L61:
+	jeq	d2,#0,.L2
+.L117:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L118:
+	mov	d0,#1
+.L119:
+	st.b	[a15],d0
+.L120:
+	j	.L3
+.L2:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L121:
+	mov	d0,#0
+.L122:
+	st.b	[a15],d0
+.L3:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L123:
+	mov	d5,#0
+.L124:
+	mov	d6,#4095
+	mov	d4,d15
+.L63:
+	call	If_InputEcu_IsInRange
+.L64:
+	st.h	[a15]8,d2
+.L125:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L126:
+	mov	d5,#0
+.L127:
+	mov	d6,#4095
+	mov	d4,d8
+.L65:
+	call	If_InputEcu_IsInRange
+.L66:
+	st.h	[a15]10,d2
+.L128:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L129:
+	mov	d5,#0
+.L130:
+	mov	d6,#4095
+	mov	d4,d9
+.L67:
+	call	If_InputEcu_IsInRange
+.L68:
+	st.h	[a15]12,d2
+.L131:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L132:
+	st.h	[a15]2,d15
+.L133:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L134:
+	st.h	[a15]4,d8
+.L135:
+	movh.a	a15,#@his(s_inputData)
+	lea	a15,[a15]@los(s_inputData)
+.L136:
+	st.h	[a15]6,d9
+.L137:
+	call	Drv_Button_ClearEvents
+.L138:
+	ret
+.L44:
+	
+__If_InputEcu_Task_function_end:
+	.size	If_InputEcu_Task,__If_InputEcu_Task_function_end-If_InputEcu_Task
+.L30:
+	; End of function
+	
+	.sdecl	'.text.If_InputEcu.If_InputEcu_GetData',code,cluster('If_InputEcu_GetData')
+	.sect	'.text.If_InputEcu.If_InputEcu_GetData'
+	.align	2
+	
+	.global	If_InputEcu_GetData
+; Function If_InputEcu_GetData
+.L14:
+If_InputEcu_GetData:	.type	func
+	movh.a	a2,#@his(s_inputData)
+	lea	a2,[a2]@los(s_inputData)
+.L143:
+	j	.L4
+.L4:
+	ret
+.L50:
+	
+__If_InputEcu_GetData_function_end:
+	.size	If_InputEcu_GetData,__If_InputEcu_GetData_function_end-If_InputEcu_GetData
+.L35:
+	; End of function
+	
+	.sdecl	'.text.If_InputEcu.If_InputEcu_IsInRange',code,cluster('If_InputEcu_IsInRange')
+	.sect	'.text.If_InputEcu.If_InputEcu_IsInRange'
+	.align	2
+	
+; Function If_InputEcu_IsInRange
+.L16:
+If_InputEcu_IsInRange:	.type	func
+	jlt.u	d4,#0,.L5
+.L148:
+	jlt.u	d6,d4,.L6
+.L149:
+	mov	d2,#1
+.L150:
+	j	.L7
+.L6:
+.L5:
+	mov	d2,#0
+.L7:
+	j	.L8
+.L8:
+	ret
+.L51:
+	
+__If_InputEcu_IsInRange_function_end:
+	.size	If_InputEcu_IsInRange,__If_InputEcu_IsInRange_function_end-If_InputEcu_IsInRange
+.L40:
+	; End of function
+	
+	.sdecl	'.bss.If_InputEcu.s_inputData',data,cluster('s_inputData')
+	.sect	'.bss.If_InputEcu.s_inputData'
+	.align	4
+s_inputData:	.type	object
+	.size	s_inputData,20
+	.space	20
+	.calls	'If_InputEcu_Task','Drv_AdcInput_GetFiltered'
+	.calls	'If_InputEcu_Task','Drv_Button_GetPressedEvent'
+	.calls	'If_InputEcu_Task','If_InputEcu_IsInRange'
+	.calls	'If_InputEcu_Task','Drv_Button_ClearEvents'
+	.calls	'If_InputEcu_Init','',0
+	.calls	'If_InputEcu_Task','',0
+	.calls	'If_InputEcu_GetData','',0
+	.extern	Drv_Button_GetPressedEvent
+	.extern	Drv_Button_ClearEvents
+	.extern	Drv_AdcInput_GetFiltered
+	.calls	'If_InputEcu_IsInRange','',0
+	.sdecl	'.debug_info',debug
+	.sect	'.debug_info'
+.L18:
+	.word	707
+	.half	3
+	.word	.L19
+	.byte	4
+.L17:
+	.byte	1
+	.byte	'../If_InputEcu.c',0
+	.byte	'TASKING VX-toolset for AURIX Development Studio (non-commercial): C compiler',0
+	.byte	'C:\\test\\tc275_input_ecu\\TriCore Debug (TASKING)\\',0,12,1
+	.word	.L20
+.L45:
+	.byte	2
+	.byte	'unsigned short int',0,2,7,2
+	.byte	'_Bool',0,1,2
+.L55:
+	.byte	3,1,47,9,20,4
+	.byte	'user_ack_button',0
+	.word	183
+	.byte	1,2,35,0,4
+	.byte	'accel_pedal_value',0
+	.word	161
+	.byte	2,2,35,2,4
+	.byte	'brake_pedal_value',0
+	.word	161
+	.byte	2,2,35,4,4
+	.byte	'steer_angle_deg',0
+	.word	161
+	.byte	2,2,35,6,4
+	.byte	'accel_valid',0
+	.word	161
+	.byte	2,2,35,8,4
+	.byte	'brake_valid',0
+	.word	161
+	.byte	2,2,35,10,4
+	.byte	'steer_valid',0
+	.word	161
+	.byte	2,2,35,12,4
+	.byte	'accel_raw',0
+	.word	161
+	.byte	2,2,35,14,4
+	.byte	'brake_raw',0
+	.word	161
+	.byte	2,2,35,16,4
+	.byte	'steer_raw',0
+	.word	161
+	.byte	2,2,35,18,0,5
+	.word	192
+.L49:
+	.byte	6
+	.word	422
+	.byte	7
+	.byte	'Drv_Button_GetPressedEvent',0,2,58,6
+	.word	183
+	.byte	1,1,1,1,8
+	.byte	'Drv_Button_ClearEvents',0,2,60,6,1,1,1,1,9,3,46,9,1,10
+	.byte	'DRV_ADC_ACCEL',0,0,10
+	.byte	'DRV_ADC_BRAKE',0,1,10
+	.byte	'DRV_ADC_STEER',0,2,10
+	.byte	'DRV_ADC_MAX',0,3,0,11
+	.byte	'Drv_AdcInput_GetFiltered',0,3,65,8
+	.word	161
+	.byte	1,1,1,1,12
+	.byte	'ch',0,3,65,50
+	.word	502
+	.byte	0,13,1,6
+	.word	619
+	.byte	14
+	.byte	'__codeptr',0,4,1,1
+	.word	621
+	.byte	14
+	.byte	'uint16',0,5,112,29
+	.word	161
+	.byte	14
+	.byte	'If_InputEcuData_t',0,1,62,3
+	.word	192
+	.byte	14
+	.byte	'Drv_AdcChannel_t',0,3,52,3
+	.word	502
+	.byte	0
+	.sdecl	'.debug_abbrev',debug
+	.sect	'.debug_abbrev'
+.L19:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,16,6,0,0,2,36,0,3,8,11,15,62,15,0,0,3,19,1,58,15,59,15,57,15,11,15
+	.byte	0,0,4,13,0,3,8,73,19,11,15,56,9,0,0,5,38,0,73,19,0,0,6,15,0,73,19,0,0,7,46,0,3,8,58,15,59,15,57,15,73
+	.byte	19,54,15,39,12,63,12,60,12,0,0,8,46,0,3,8,58,15,59,15,57,15,54,15,39,12,63,12,60,12,0,0,9,4,1,58,15,59
+	.byte	15,57,15,11,15,0,0,10,40,0,3,8,28,13,0,0,11,46,1,3,8,58,15,59,15,57,15,73,19,54,15,39,12,63,12,60,12,0
+	.byte	0,12,5,0,3,8,58,15,59,15,57,15,73,19,0,0,13,21,0,54,15,0,0,14,22,0,3,8,58,15,59,15,57,15,73,19,0,0,0
+	.sdecl	'.debug_line',debug
+	.sect	'.debug_line'
+.L20:
+	.word	.L70-.L69
+.L69:
+	.half	3
+	.word	.L72-.L71
+.L71:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1
+	.byte	'C:\\\\test\\\\tc275_input_ecu\\\\Libraries\\\\iLLD\\\\TC27D\\\\Tricore\\\\Cpu\\\\Std',0,0
+	.byte	'..\\If_InputEcu.h',0,0,0,0
+	.byte	'..\\Drv_Button.h',0,0,0,0
+	.byte	'..\\Drv_AdcInput.h',0,0,0,0
+	.byte	'../If_InputEcu.c',0,0,0,0
+	.byte	'Platform_Types.h',0,1,0,0,0
+.L72:
+.L70:
+	.sdecl	'.debug_info',debug,cluster('If_InputEcu_Init')
+	.sect	'.debug_info'
+.L21:
+	.word	213
+	.half	3
+	.word	.L22
+	.byte	4,1
+	.byte	'../If_InputEcu.c',0
+	.byte	'TASKING VX-toolset for AURIX Development Studio (non-commercial): C compiler',0
+	.byte	'C:\\test\\tc275_input_ecu\\TriCore Debug (TASKING)\\',0,12,1
+	.word	.L24,.L23
+	.byte	2
+	.word	.L17
+	.byte	3
+	.byte	'If_InputEcu_Init',0,1,60,6,1,1,1
+	.word	.L10,.L43,.L9
+	.byte	4
+	.word	.L10,.L43
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('If_InputEcu_Init')
+	.sect	'.debug_abbrev'
+.L22:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('If_InputEcu_Init')
+	.sect	'.debug_line'
+.L23:
+	.word	.L74-.L73
+.L73:
+	.half	3
+	.word	.L76-.L75
+.L75:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'../If_InputEcu.c',0,0,0,0,0
+.L76:
+	.byte	5,5,7,0,5,2
+	.word	.L10
+	.byte	3,61,1,5,35,9
+	.half	.L77-.L10
+	.byte	1,5,33,9
+	.half	.L78-.L77
+	.byte	1,5,5,9
+	.half	.L79-.L78
+	.byte	3,2,1,5,37,9
+	.half	.L80-.L79
+	.byte	1,5,35,9
+	.half	.L81-.L80
+	.byte	1,5,5,9
+	.half	.L82-.L81
+	.byte	3,1,1,5,37,9
+	.half	.L83-.L82
+	.byte	1,5,35,9
+	.half	.L84-.L83
+	.byte	1,5,5,9
+	.half	.L85-.L84
+	.byte	3,1,1,5,37,9
+	.half	.L86-.L85
+	.byte	1,5,35,9
+	.half	.L87-.L86
+	.byte	1,5,5,9
+	.half	.L88-.L87
+	.byte	3,2,1,5,31,9
+	.half	.L89-.L88
+	.byte	1,5,29,9
+	.half	.L90-.L89
+	.byte	1,5,5,9
+	.half	.L91-.L90
+	.byte	3,1,1,5,31,9
+	.half	.L92-.L91
+	.byte	1,5,29,9
+	.half	.L93-.L92
+	.byte	1,5,5,9
+	.half	.L94-.L93
+	.byte	3,1,1,5,31,9
+	.half	.L95-.L94
+	.byte	1,5,29,9
+	.half	.L96-.L95
+	.byte	1,5,5,9
+	.half	.L97-.L96
+	.byte	3,2,1,5,29,9
+	.half	.L98-.L97
+	.byte	1,5,27,9
+	.half	.L99-.L98
+	.byte	1,5,5,9
+	.half	.L100-.L99
+	.byte	3,1,1,5,29,9
+	.half	.L101-.L100
+	.byte	1,5,27,9
+	.half	.L102-.L101
+	.byte	1,5,5,9
+	.half	.L103-.L102
+	.byte	3,1,1,5,29,9
+	.half	.L104-.L103
+	.byte	1,5,27,9
+	.half	.L105-.L104
+	.byte	1,5,1,9
+	.half	.L106-.L105
+	.byte	3,1,1,7,9
+	.half	.L25-.L106
+	.byte	0,1,1
+.L74:
+	.sdecl	'.debug_ranges',debug,cluster('If_InputEcu_Init')
+	.sect	'.debug_ranges'
+.L24:
+	.word	-1,.L10,0,.L25-.L10,0,0
+	.sdecl	'.debug_info',debug,cluster('If_InputEcu_Task')
+	.sect	'.debug_info'
+.L26:
+	.word	277
+	.half	3
+	.word	.L27
+	.byte	4,1
+	.byte	'../If_InputEcu.c',0
+	.byte	'TASKING VX-toolset for AURIX Development Studio (non-commercial): C compiler',0
+	.byte	'C:\\test\\tc275_input_ecu\\TriCore Debug (TASKING)\\',0,12,1
+	.word	.L29,.L28
+	.byte	2
+	.word	.L17
+	.byte	3
+	.byte	'If_InputEcu_Task',0,1,77,6,1,1,1
+	.word	.L12,.L44,.L11
+	.byte	4
+	.word	.L12,.L44
+	.byte	5
+	.byte	'accelRaw',0,1,79,12
+	.word	.L45,.L46
+	.byte	5
+	.byte	'brakeRaw',0,1,80,12
+	.word	.L45,.L47
+	.byte	5
+	.byte	'steerRaw',0,1,81,12
+	.word	.L45,.L48
+	.byte	0,0,0
+	.sdecl	'.debug_abbrev',debug,cluster('If_InputEcu_Task')
+	.sect	'.debug_abbrev'
+.L27:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,54,15
+	.byte	39,12,63,12,17,1,18,1,64,6,0,0,4,11,1,17,1,18,1,0,0,5,52,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,0
+	.sdecl	'.debug_line',debug,cluster('If_InputEcu_Task')
+	.sect	'.debug_line'
+.L28:
+	.word	.L108-.L107
+.L107:
+	.half	3
+	.word	.L110-.L109
+.L109:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'../If_InputEcu.c',0,0,0,0,0
+.L110:
+	.byte	5,41,7,0,5,2
+	.word	.L12
+	.byte	3,210,0,1,5,14,9
+	.half	.L56-.L12
+	.byte	1,5,41,9
+	.half	.L58-.L56
+	.byte	3,1,1,5,14,9
+	.half	.L57-.L58
+	.byte	1,5,41,9
+	.half	.L60-.L57
+	.byte	3,1,1,5,14,9
+	.half	.L59-.L60
+	.byte	1,5,5,9
+	.half	.L62-.L59
+	.byte	3,2,1,5,27,9
+	.half	.L111-.L62
+	.byte	1,5,5,9
+	.half	.L112-.L111
+	.byte	3,1,1,5,27,9
+	.half	.L113-.L112
+	.byte	1,5,5,9
+	.half	.L114-.L113
+	.byte	3,1,1,5,27,9
+	.half	.L115-.L114
+	.byte	1,5,35,9
+	.half	.L116-.L115
+	.byte	3,2,1,5,5,9
+	.half	.L61-.L116
+	.byte	1,5,9,7,9
+	.half	.L117-.L61
+	.byte	3,2,1,5,39,9
+	.half	.L118-.L117
+	.byte	1,5,37,9
+	.half	.L119-.L118
+	.byte	1,5,43,9
+	.half	.L120-.L119
+	.byte	1,5,9,9
+	.half	.L2-.L120
+	.byte	3,4,1,5,39,9
+	.half	.L121-.L2
+	.byte	1,5,37,9
+	.half	.L122-.L121
+	.byte	1,5,5,9
+	.half	.L3-.L122
+	.byte	3,3,1,5,63,9
+	.half	.L123-.L3
+	.byte	1,5,81,9
+	.half	.L124-.L123
+	.byte	1,5,29,9
+	.half	.L64-.L124
+	.byte	1,5,5,9
+	.half	.L125-.L64
+	.byte	3,1,1,5,63,9
+	.half	.L126-.L125
+	.byte	1,5,81,9
+	.half	.L127-.L126
+	.byte	1,5,29,9
+	.half	.L66-.L127
+	.byte	1,5,5,9
+	.half	.L128-.L66
+	.byte	3,1,1,5,63,9
+	.half	.L129-.L128
+	.byte	1,5,81,9
+	.half	.L130-.L129
+	.byte	1,5,29,9
+	.half	.L68-.L130
+	.byte	1,5,5,9
+	.half	.L131-.L68
+	.byte	3,3,1,5,35,9
+	.half	.L132-.L131
+	.byte	1,5,5,9
+	.half	.L133-.L132
+	.byte	3,1,1,5,35,9
+	.half	.L134-.L133
+	.byte	1,5,5,9
+	.half	.L135-.L134
+	.byte	3,1,1,5,35,9
+	.half	.L136-.L135
+	.byte	1,5,27,9
+	.half	.L137-.L136
+	.byte	3,2,1,5,1,9
+	.half	.L138-.L137
+	.byte	3,1,1,7,9
+	.half	.L30-.L138
+	.byte	0,1,1
+.L108:
+	.sdecl	'.debug_ranges',debug,cluster('If_InputEcu_Task')
+	.sect	'.debug_ranges'
+.L29:
+	.word	-1,.L12,0,.L30-.L12,0,0
+	.sdecl	'.debug_info',debug,cluster('If_InputEcu_GetData')
+	.sect	'.debug_info'
+.L31:
+	.word	220
+	.half	3
+	.word	.L32
+	.byte	4,1
+	.byte	'../If_InputEcu.c',0
+	.byte	'TASKING VX-toolset for AURIX Development Studio (non-commercial): C compiler',0
+	.byte	'C:\\test\\tc275_input_ecu\\TriCore Debug (TASKING)\\',0,12,1
+	.word	.L34,.L33
+	.byte	2
+	.word	.L17
+	.byte	3
+	.byte	'If_InputEcu_GetData',0,1,112,26
+	.word	.L49
+	.byte	1,1,1
+	.word	.L14,.L50,.L13
+	.byte	4
+	.word	.L14,.L50
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('If_InputEcu_GetData')
+	.sect	'.debug_abbrev'
+.L32:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,63,12,17,1,18,1,64,6,0,0,4,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('If_InputEcu_GetData')
+	.sect	'.debug_line'
+.L33:
+	.word	.L140-.L139
+.L139:
+	.half	3
+	.word	.L142-.L141
+.L141:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'../If_InputEcu.c',0,0,0,0,0
+.L142:
+	.byte	5,13,7,0,5,2
+	.word	.L14
+	.byte	3,241,0,1,5,5,9
+	.half	.L143-.L14
+	.byte	1,5,1,9
+	.half	.L4-.L143
+	.byte	3,1,1,7,9
+	.half	.L35-.L4
+	.byte	0,1,1
+.L140:
+	.sdecl	'.debug_ranges',debug,cluster('If_InputEcu_GetData')
+	.sect	'.debug_ranges'
+.L34:
+	.word	-1,.L14,0,.L35-.L14,0,0
+	.sdecl	'.debug_info',debug,cluster('If_InputEcu_IsInRange')
+	.sect	'.debug_info'
+.L36:
+	.word	269
+	.half	3
+	.word	.L37
+	.byte	4,1
+	.byte	'../If_InputEcu.c',0
+	.byte	'TASKING VX-toolset for AURIX Development Studio (non-commercial): C compiler',0
+	.byte	'C:\\test\\tc275_input_ecu\\TriCore Debug (TASKING)\\',0,12,1
+	.word	.L39,.L38
+	.byte	2
+	.word	.L17
+	.byte	3
+	.byte	'If_InputEcu_IsInRange',0,1,117,15
+	.word	.L45
+	.byte	1,1
+	.word	.L16,.L51,.L15
+	.byte	4
+	.byte	'raw',0,1,117,44
+	.word	.L45,.L52
+	.byte	4
+	.byte	'min',0,1,117,56
+	.word	.L45,.L53
+	.byte	4
+	.byte	'max',0,1,117,68
+	.word	.L45,.L54
+	.byte	5
+	.word	.L16,.L51
+	.byte	0,0
+	.sdecl	'.debug_abbrev',debug,cluster('If_InputEcu_IsInRange')
+	.sect	'.debug_abbrev'
+.L37:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,85,6,16,6,0,0,2,61,0,24,16,0,0,3,46,1,3,8,58,15,59,15,57,15,73,16
+	.byte	54,15,39,12,17,1,18,1,64,6,0,0,4,5,0,3,8,58,15,59,15,57,15,73,16,2,6,0,0,5,11,0,17,1,18,1,0,0,0
+	.sdecl	'.debug_line',debug,cluster('If_InputEcu_IsInRange')
+	.sect	'.debug_line'
+.L38:
+	.word	.L145-.L144
+.L144:
+	.half	3
+	.word	.L147-.L146
+.L146:
+	.byte	2,1,-4,9,10,0,1,1,1,1,0,0,0,1,0
+	.byte	'../If_InputEcu.c',0,0,0,0,0
+.L147:
+	.byte	5,13,7,0,5,2
+	.word	.L16
+	.byte	3,246,0,1,5,34,7,9
+	.half	.L148-.L16
+	.byte	1,5,43,7,9
+	.half	.L149-.L148
+	.byte	1,5,48,9
+	.half	.L150-.L149
+	.byte	1,5,43,9
+	.half	.L5-.L150
+	.byte	1,5,5,9
+	.half	.L7-.L5
+	.byte	1,5,1,9
+	.half	.L8-.L7
+	.byte	3,1,1,7,9
+	.half	.L40-.L8
+	.byte	0,1,1
+.L145:
+	.sdecl	'.debug_ranges',debug,cluster('If_InputEcu_IsInRange')
+	.sect	'.debug_ranges'
+.L39:
+	.word	-1,.L16,0,.L40-.L16,0,0
+	.sdecl	'.debug_info',debug,cluster('s_inputData')
+	.sect	'.debug_info'
+.L41:
+	.word	185
+	.half	3
+	.word	.L42
+	.byte	4,1
+	.byte	'../If_InputEcu.c',0
+	.byte	'TASKING VX-toolset for AURIX Development Studio (non-commercial): C compiler',0
+	.byte	'C:\\test\\tc275_input_ecu\\TriCore Debug (TASKING)\\',0,12,1,2
+	.word	.L17
+	.byte	3
+	.byte	's_inputData',0,4,50,26
+	.word	.L55
+	.byte	5,3
+	.word	s_inputData
+	.byte	0
+	.sdecl	'.debug_abbrev',debug,cluster('s_inputData')
+	.sect	'.debug_abbrev'
+.L42:
+	.byte	1,17,1,3,8,37,8,27,8,19,15,128,70,12,0,0,2,61,0,24,16,0,0,3,52,0,3,8,58,15,59,15,57,15,73,16,2,9,0,0,0
+	.sdecl	'.debug_loc',debug,cluster('If_InputEcu_GetData')
+	.sect	'.debug_loc'
+.L13:
+	.word	-1,.L14,0,.L50-.L14
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('If_InputEcu_Init')
+	.sect	'.debug_loc'
+.L9:
+	.word	-1,.L10,0,.L43-.L10
+	.half	2
+	.byte	138,0
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('If_InputEcu_IsInRange')
+	.sect	'.debug_loc'
+.L15:
+	.word	-1,.L16,0,.L51-.L16
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L54:
+	.word	-1,.L16,0,.L51-.L16
+	.half	1
+	.byte	86
+	.word	0,0
+.L53:
+	.word	-1,.L16,0,.L51-.L16
+	.half	1
+	.byte	85
+	.word	0,0
+.L52:
+	.word	-1,.L16,0,.L51-.L16
+	.half	1
+	.byte	84
+	.word	0,0
+	.sdecl	'.debug_loc',debug,cluster('If_InputEcu_Task')
+	.sect	'.debug_loc'
+.L11:
+	.word	-1,.L12,0,.L44-.L12
+	.half	2
+	.byte	138,0
+	.word	0,0
+.L46:
+	.word	-1,.L12,.L56-.L12,.L57-.L12
+	.half	1
+	.byte	82
+	.word	.L58-.L12,.L44-.L12
+	.half	1
+	.byte	95
+	.word	.L63-.L12,.L64-.L12
+	.half	1
+	.byte	84
+	.word	0,0
+.L47:
+	.word	-1,.L12,.L57-.L12,.L59-.L12
+	.half	1
+	.byte	82
+	.word	.L60-.L12,.L44-.L12
+	.half	1
+	.byte	88
+	.word	.L65-.L12,.L66-.L12
+	.half	1
+	.byte	84
+	.word	0,0
+.L48:
+	.word	-1,.L12,.L59-.L12,.L61-.L12
+	.half	1
+	.byte	82
+	.word	.L62-.L12,.L44-.L12
+	.half	1
+	.byte	89
+	.word	.L67-.L12,.L68-.L12
+	.half	1
+	.byte	84
+	.word	0,0
+	.sdecl	'.debug_frame',debug
+	.sect	'.debug_frame'
+.L151:
+	.word	48
+	.word	-1
+	.byte	3,0,2,1,27,12,26,0,8,26,8,27,8,30,8,29,8,28,8,16,8,17,8,24,8,25,8,31,8,32,8,33,8,34,8,35,8,36,8,37,8,38
+	.byte	8,39
+	.sdecl	'.debug_frame',debug,cluster('If_InputEcu_Init')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L151,.L10,.L43-.L10
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	.sdecl	'.debug_frame',debug,cluster('If_InputEcu_Task')
+	.sect	'.debug_frame'
+	.word	12
+	.word	.L151,.L12,.L44-.L12
+	.sdecl	'.debug_frame',debug,cluster('If_InputEcu_GetData')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L151,.L14,.L50-.L14
+	.byte	8,19,8,20,8,21,8,22,8,23,0,0
+	.sdecl	'.debug_frame',debug,cluster('If_InputEcu_IsInRange')
+	.sect	'.debug_frame'
+	.word	24
+	.word	.L151,.L16,.L51-.L16
+	.byte	8,18,8,19,8,20,8,21,8,22,8,23
+	; Module end

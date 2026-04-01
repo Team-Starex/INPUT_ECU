@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.rt.hightec.agent.launcher.launchConfigurationType">
+    <stringAttribute key="ACC_HW" value="DAS JTAG SHIELDBUDDY TC275 464387QC"/>
+    <booleanAttribute key="ENABLE_AGENTLOG" value="false"/>
+    <booleanAttribute key="ENABLE_FLASHING" value="true"/>
+    <booleanAttribute key="ENABLE_STOPPING" value="true"/>
+    <stringAttribute key="EXECUTABLE_PATH" value="${workspace_loc}/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf"/>
+    <stringAttribute key="STOP_FUNCTION" value="core0_main"/>
+    <stringAttribute key="SVD" value="C:/Infineon/AURIX-Studio-1.10.32/build_system/bundled-artefacts-repo/svd/tc27xdpd/1.2-3/device.svd"/>
+    <stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="tc275_input_ecu"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/tc275_input_ecu"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="4"/>
+    </listAttribute>
+    <stringAttribute key="org.eclipse.debug.ui.ATTR_LOCATION" value="/tc275_input_ecu/tc275_input_ecu TriCore Debug (TASKING).launch"/>
+    <stringAttribute key="org.eclipse.debug.ui.ATTR_PROJECT_NAME" value="tc275_input_ecu"/>
+    <booleanAttribute key="org.eclipse.debug.ui.ATTR_SHARED" value="true"/>
+    <stringAttribute key="org.eclipse.tcf.debug.MemoryMap" value="[{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 2: CPU2 TriCore 1.6P&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;2c75d709-0269-4bc0-aacf-9cbe9b29b1eb&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 2: CPU2 TriCore 1.6P&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;ba9bb7b1-9dad-49ce-aad6-e2f3c444efa0&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 2: CPU2 TriCore 1.6P&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;66b91388-6d12-4d73-b1c3-fd712765f5e1&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 0: CPU0 TriCore 1.6E&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;c7358f66-e910-4561-abc1-22e122921283&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 2: CPU2 TriCore 1.6P&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;ac64a2d6-b828-4079-98ca-b1368e19efee&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 0: CPU0 TriCore 1.6E&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;70d84664-a0bd-47f7-87ab-c9eab2b7de26&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 2: CPU2 TriCore 1.6P&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;1d139e11-7bad-4e28-826d-7e94e3e8693e&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 0: CPU0 TriCore 1.6E&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;dfa4f5d8-2f90-4aba-9d21-ae5f2cb05196&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 1: CPU1 TriCore 1.6P&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;4ac20518-facb-4591-ab6c-22e134869f82&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 2: CPU2 TriCore 1.6P&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;5bdc9945-f62e-46b7-aa7b-969862d680cf&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 0: CPU0 TriCore 1.6E&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;1a59cfe3-fc20-4a7a-bd4f-3afac3b6a445&quot;},{&quot;FileName&quot;:&quot;C:/test/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf&quot;,&quot;ID&quot;:&quot;/DAS JTAG SHIELDBUDDY TC275 464387QC/Core 1: CPU1 TriCore 1.6P&quot;,&quot;Flags&quot;:0,&quot;UUID&quot;:&quot;c91aad1f-891c-48f6-9d5d-29769aa06130&quot;}]"/>
+    <stringAttribute key="org.eclipse.tcf.debug.PeerID" value="TCP:127.0.0.1:1534"/>
+    <stringAttribute key="org.eclipse.tcf.debug.ProjectName" value="tc275_input_ecu"/>
+    <booleanAttribute key="org.eclipse.tcf.debug.RunLocalAgent" value="false"/>
+    <booleanAttribute key="org.eclipse.tcf.debug.RunLocalServer" value="false"/>
+    <booleanAttribute key="org.eclipse.tcf.debug.UseLocalAgent" value="false"/>
+    <stringAttribute key="org.eclipse.tcf.debug.executable_name" value="${workspace_loc}/tc275_input_ecu/TriCore Debug (TASKING)/tc275_input_ecu.elf"/>
+    <stringAttribute key="sessionID" value="02244025-6479-4d2c-8289-a85b912063c1"/>
+</launchConfiguration>
