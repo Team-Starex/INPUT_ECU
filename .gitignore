@@ -1,0 +1,15 @@
+# Build output
+TriCore Debug (TASKING)/
+
+# Object / build files
+*.o
+*.d
+*.src
+*.elf
+*.hex
+*.map
+*.mdf
+
+# IDE / temp
+*.log
+*.tmp
