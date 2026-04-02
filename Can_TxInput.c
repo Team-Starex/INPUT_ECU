@@ -79,11 +79,9 @@ void Can_TxInput_Init(void)
     msgObjConfig.messageId = CAN_TXINPUT_MSG_ID_INPUT_DATA;
     msgObjConfig.frame = IfxMultican_Frame_transmit;
 
-    msgObjConfig.control.messageLen = IfxMultican_DataLengthCode_8;
+    msgObjConfig.control.messageLen = IfxMultican_DataLengthCode_1;
     msgObjConfig.control.extendedFrame = FALSE;
     msgObjConfig.control.matchingId = TRUE;
-
-    /* 일부 iLLD 버전에서는 txInterrupt/rxInterrupt 멤버가 없어서 사용하지 않음 */
 
     IfxMultican_Can_MsgObj_init(&g_canTxMsgObj, &msgObjConfig);
 
@@ -121,52 +119,21 @@ void Can_TxInput_Send(const If_InputEcuData_t* data)
 
 static void Can_TxInput_BuildMessage(const If_InputEcuData_t* data, IfxMultican_Message* message)
 {
-    uint8 payload[8];
-    uint16 buttonValue;
-    uint16 brakeValue;
-    uint16 accelValue;
-    uint16 steerValue;
+    uint8 buttonValue;
     uint32 dataLow;
     uint32 dataHigh;
 
-    /* 요구 payload 매핑
-     * byte 0~1 : button
-     * byte 2~3 : brake
-     * byte 4~5 : accel
-     * byte 6~7 : steer
-     */
+    /* button toggle state를 byte0에 0 또는 1로 송신 */
     buttonValue = (data->user_ack_button == true) ? 1U : 0U;
-    brakeValue  = data->brake_pedal_value;
-    accelValue  = data->accel_pedal_value;
-    steerValue  = data->steer_angle_deg;
 
-    payload[0] = (uint8)(buttonValue & 0x00FFU);
-    payload[1] = (uint8)((buttonValue >> 8) & 0x00FFU);
-
-    payload[2] = (uint8)(brakeValue & 0x00FFU);
-    payload[3] = (uint8)((brakeValue >> 8) & 0x00FFU);
-
-    payload[4] = (uint8)(accelValue & 0x00FFU);
-    payload[5] = (uint8)((accelValue >> 8) & 0x00FFU);
-
-    payload[6] = (uint8)(steerValue & 0x00FFU);
-    payload[7] = (uint8)((steerValue >> 8) & 0x00FFU);
-
-    dataLow  = ((uint32)payload[0] << 0)
-             | ((uint32)payload[1] << 8)
-             | ((uint32)payload[2] << 16)
-             | ((uint32)payload[3] << 24);
-
-    dataHigh = ((uint32)payload[4] << 0)
-             | ((uint32)payload[5] << 8)
-             | ((uint32)payload[6] << 16)
-             | ((uint32)payload[7] << 24);
+    dataLow  = (uint32)buttonValue;
+    dataHigh = 0U;
 
     IfxMultican_Message_init(message,
                              CAN_TXINPUT_MSG_ID_INPUT_DATA,
                              dataLow,
                              dataHigh,
-                             IfxMultican_DataLengthCode_8);
+                             IfxMultican_DataLengthCode_1);
 }
 
 static void Can_TxInput_InitTransceiver(void)

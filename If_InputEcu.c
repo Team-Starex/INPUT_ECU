@@ -59,7 +59,7 @@ static uint16 If_InputEcu_IsInRange(uint16 raw, uint16 min, uint16 max);
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 void If_InputEcu_Init(void)
 {
-    s_inputData.user_ack_button = false;
+    s_inputData.user_ack_button = Drv_Button_GetState();
 
     s_inputData.accel_pedal_value = 0U;
     s_inputData.brake_pedal_value = 0U;
@@ -80,6 +80,8 @@ void If_InputEcu_Task(void)
     uint16 brakeRaw;
     uint16 steerRaw;
 
+    static bool s_toggleState = false;   // ⭐ 추가 (핵심)
+
     accelRaw = Drv_AdcInput_GetFiltered(DRV_ADC_ACCEL);
     brakeRaw = Drv_AdcInput_GetFiltered(DRV_ADC_BRAKE);
     steerRaw = Drv_AdcInput_GetFiltered(DRV_ADC_STEER);
@@ -88,26 +90,60 @@ void If_InputEcu_Task(void)
     s_inputData.brake_raw = brakeRaw;
     s_inputData.steer_raw = steerRaw;
 
+    /* ⭐ 버튼 눌릴 때마다 토글 */
     if (Drv_Button_GetPressedEvent() == true)
     {
-        s_inputData.user_ack_button = true;
+        s_toggleState = !s_toggleState;
     }
-    else
-    {
-        s_inputData.user_ack_button = false;
-    }
+
+    s_inputData.user_ack_button = s_toggleState;
 
     s_inputData.accel_valid = If_InputEcu_IsInRange(accelRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
     s_inputData.brake_valid = If_InputEcu_IsInRange(brakeRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
     s_inputData.steer_valid = If_InputEcu_IsInRange(steerRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
 
-    /* 최종 요구사항: 0~4095 raw 그대로 사용 */
     s_inputData.accel_pedal_value = accelRaw;
     s_inputData.brake_pedal_value = brakeRaw;
     s_inputData.steer_angle_deg   = steerRaw;
 
     Drv_Button_ClearEvents();
 }
+
+// 테스트용이니까 다시 이걸로 되돌려야 함
+//void If_InputEcu_Task(void)
+//{
+//    uint16 accelRaw;
+//    uint16 brakeRaw;
+//    uint16 steerRaw;
+//
+//    accelRaw = Drv_AdcInput_GetFiltered(DRV_ADC_ACCEL);
+//    brakeRaw = Drv_AdcInput_GetFiltered(DRV_ADC_BRAKE);
+//    steerRaw = Drv_AdcInput_GetFiltered(DRV_ADC_STEER);
+//
+//    s_inputData.accel_raw = accelRaw;
+//    s_inputData.brake_raw = brakeRaw;
+//    s_inputData.steer_raw = steerRaw;
+//
+//    if (Drv_Button_GetPressedEvent() == true)
+//    {
+//        s_inputData.user_ack_button = true;
+//    }
+//    else
+//    {
+//        s_inputData.user_ack_button = false;
+//    }
+//
+//    s_inputData.accel_valid = If_InputEcu_IsInRange(accelRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
+//    s_inputData.brake_valid = If_InputEcu_IsInRange(brakeRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
+//    s_inputData.steer_valid = If_InputEcu_IsInRange(steerRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
+//
+//    /* 최종 요구사항: 0~4095 raw 그대로 사용 */
+//    s_inputData.accel_pedal_value = accelRaw;
+//    s_inputData.brake_pedal_value = brakeRaw;
+//    s_inputData.steer_angle_deg   = steerRaw;
+//
+//    Drv_Button_ClearEvents();
+//}
 
 const If_InputEcuData_t* If_InputEcu_GetData(void)
 {
