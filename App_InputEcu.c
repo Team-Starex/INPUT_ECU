@@ -28,7 +28,7 @@ void App_InputEcu_Task_10ms(void)
     If_InputEcu_Task();
 }
 
-void App_InputEcu_Task_100ms(void)
+void App_InputEcu_Task_10ms_CanTx(void)
 {
     const If_InputEcuData_t* inputData;
 

@@ -92,35 +92,31 @@ void Can_TxInput_Init(void)
 
 void Can_TxInput_Send(const If_InputEcuData_t* data)
 {
-    static boolean s_sentOnce = FALSE;
     IfxMultican_Message message;
     IfxMultican_Status status;
+    uint32 retryCnt = 0U;
 
     if (data == NULL_PTR)
     {
         return;
     }
 
-    if (s_sentOnce == TRUE)
-    {
-        return;
-    }
-
     Can_TxInput_BuildMessage(data, &message);
 
-    g_canSendTry++;
-
-    status = IfxMultican_Can_MsgObj_sendMessage(&g_canTxMsgObj, &message);
-
-    if (status == IfxMultican_Status_ok)
+    do
     {
-        g_canSendOk++;
-        s_sentOnce = TRUE;
-    }
-    else
-    {
+        g_canSendTry++;
+        status = IfxMultican_Can_MsgObj_sendMessage(&g_canTxMsgObj, &message);
+
+        if (status == IfxMultican_Status_ok)
+        {
+            g_canSendOk++;
+            break;
+        }
+
         g_canSendBusy++;
-    }
+        retryCnt++;
+    } while (retryCnt < CAN_TXINPUT_SEND_RETRY_MAX);
 }
 
 static void Can_TxInput_BuildMessage(const If_InputEcuData_t* data, IfxMultican_Message* message)

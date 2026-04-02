@@ -52,7 +52,7 @@
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
 void App_InputEcu_Init(void);
 void App_InputEcu_Task_10ms(void);
-void App_InputEcu_Task_100ms(void);
+void App_InputEcu_Task_10ms_CanTx(void);
 /*********************************************************************************************************************/
 
 #endif /* APP_INPUTECU_H_ */

@@ -19,13 +19,11 @@ IfxCpu_syncEvent cpuSyncEvent = 0;
 #define LED_PIN                 (2U)
 
 #define TASK_BASE_PERIOD_MS     (10U)
-#define TASK_100MS_TICKS        (10U)
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
 volatile uint16 g_task10msCnt   = 0U;
-volatile uint16 g_task100msCnt  = 0U;
 
 /* 디버그용 변수 */
 volatile boolean g_ledOn        = FALSE;
@@ -65,6 +63,7 @@ void core0_main(void)
     while (1)
     {
         App_InputEcu_Task_10ms();
+        App_InputEcu_Task_10ms_CanTx();
         g_task10msCnt++;
 
         inputData = If_InputEcu_GetData();
@@ -73,12 +72,6 @@ void core0_main(void)
         if (inputData->user_ack_button == true)
         {
             ToggleLed();
-        }
-
-        if ((g_task10msCnt % TASK_100MS_TICKS) == 0U)
-        {
-            App_InputEcu_Task_100ms();
-            g_task100msCnt++;
         }
 
         waitTime(IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, TASK_BASE_PERIOD_MS));
