@@ -12,3 +12,5 @@ App_InputEcu.o :	"C:\\test\\tc275_input_ecu\\Libraries\\iLLD\\TC27D\\Tricore\\Cp
 "C:\\test\\tc275_input_ecu\\Libraries\\iLLD\\TC27D\\Tricore\\Cpu\\Std\Platform_Types.h" :
 App_InputEcu.o :	..\If_InputEcu.h
 ..\If_InputEcu.h :
+App_InputEcu.o :	..\Can_TxInput.h
+..\Can_TxInput.h :
