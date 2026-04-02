@@ -79,7 +79,8 @@ void Can_TxInput_Init(void)
     msgObjConfig.messageId = CAN_TXINPUT_MSG_ID_INPUT_DATA;
     msgObjConfig.frame = IfxMultican_Frame_transmit;
 
-    msgObjConfig.control.messageLen = IfxMultican_DataLengthCode_1;
+    /* 8바이트 송신 */
+    msgObjConfig.control.messageLen = IfxMultican_DataLengthCode_8;
     msgObjConfig.control.extendedFrame = FALSE;
     msgObjConfig.control.matchingId = TRUE;
 
@@ -119,21 +120,44 @@ void Can_TxInput_Send(const If_InputEcuData_t* data)
 
 static void Can_TxInput_BuildMessage(const If_InputEcuData_t* data, IfxMultican_Message* message)
 {
-    uint8 buttonValue;
+    uint16 buttonValue;
+    uint16 brakeValue;
+    uint16 accelValue;
+    uint16 steerValue;
+
     uint32 dataLow;
     uint32 dataHigh;
 
-    /* button toggle state를 byte0에 0 또는 1로 송신 */
+    /* 0~1 : 버튼
+     * 2~3 : 브레이크
+     * 4~5 : 엑셀
+     * 6~7 : 핸들
+     *
+     * little-endian 배치
+     * byte0 = low byte, byte1 = high byte
+     */
     buttonValue = (data->user_ack_button == true) ? 1U : 0U;
+    brakeValue  = data->brake_pedal_value;
+    accelValue  = data->accel_pedal_value;
+    steerValue  = data->steer_angle_deg;
 
-    dataLow  = (uint32)buttonValue;
-    dataHigh = 0U;
+    dataLow =
+        ((uint32)(buttonValue & 0x00FFU)      ) |
+        ((uint32)((buttonValue >> 8) & 0x00FFU) << 8) |
+        ((uint32)(brakeValue & 0x00FFU)       << 16) |
+        ((uint32)((brakeValue >> 8) & 0x00FFU) << 24);
+
+    dataHigh =
+        ((uint32)(accelValue & 0x00FFU)       ) |
+        ((uint32)((accelValue >> 8) & 0x00FFU) << 8) |
+        ((uint32)(steerValue & 0x00FFU)       << 16) |
+        ((uint32)((steerValue >> 8) & 0x00FFU) << 24);
 
     IfxMultican_Message_init(message,
                              CAN_TXINPUT_MSG_ID_INPUT_DATA,
                              dataLow,
                              dataHigh,
-                             IfxMultican_DataLengthCode_1);
+                             IfxMultican_DataLengthCode_8);
 }
 
 static void Can_TxInput_InitTransceiver(void)
