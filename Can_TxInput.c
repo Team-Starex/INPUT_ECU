@@ -133,24 +133,28 @@ static void Can_TxInput_BuildMessage(const If_InputEcuData_t* data, IfxMultican_
      * 4~5 : 엑셀
      * 6~7 : 핸들
      *
+     * 센서값은 0~255(uint8) 이지만,
+     * 기존 바이트 위치 유지를 위해 16비트 자리로 싣고
+     * 상위 바이트는 0으로 보낸다.
+     *
      * little-endian 배치
      * byte0 = low byte, byte1 = high byte
      */
     buttonValue = (data->user_ack_button == true) ? 1U : 0U;
-    brakeValue  = data->brake_pedal_value;
-    accelValue  = data->accel_pedal_value;
-    steerValue  = data->steer_angle_deg;
+    brakeValue  = (uint16)data->brake_pedal_value;
+    accelValue  = (uint16)data->accel_pedal_value;
+    steerValue  = (uint16)data->steer_angle_deg;
 
     dataLow =
-        ((uint32)(buttonValue & 0x00FFU)      ) |
+        ((uint32)(buttonValue & 0x00FFU)       ) |
         ((uint32)((buttonValue >> 8) & 0x00FFU) << 8) |
-        ((uint32)(brakeValue & 0x00FFU)       << 16) |
+        ((uint32)(brakeValue & 0x00FFU)        << 16) |
         ((uint32)((brakeValue >> 8) & 0x00FFU) << 24);
 
     dataHigh =
-        ((uint32)(accelValue & 0x00FFU)       ) |
+        ((uint32)(accelValue & 0x00FFU)        ) |
         ((uint32)((accelValue >> 8) & 0x00FFU) << 8) |
-        ((uint32)(steerValue & 0x00FFU)       << 16) |
+        ((uint32)(steerValue & 0x00FFU)        << 16) |
         ((uint32)((steerValue >> 8) & 0x00FFU) << 24);
 
     IfxMultican_Message_init(message,

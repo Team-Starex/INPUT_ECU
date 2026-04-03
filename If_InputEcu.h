@@ -9,7 +9,7 @@
  * Boost Software License - Version 1.0 - August 17th, 2003
  * 
  * Permission is hereby granted, free of charge, to any person or organization obtaining a copy of the software and 
- * accompanying documentation covered by this license (the "Software") to use, reproduce, display, distribute, execute,
+ * accompanying documentation covered by this license (the "Software"), to use, reproduce, display, distribute, execute,
  * and transmit the Software, and to prepare derivative works of the Software, and to permit third-parties to whom the
  * Software is furnished to do so, all subject to the following:
  * 
@@ -46,11 +46,11 @@
 /*-------------------------------------------------Data Structures---------------------------------------------------*/
 typedef struct
 {
-    bool   user_ack_button;
+    bool  user_ack_button;
 
-    uint16 accel_pedal_value;
-    uint16 brake_pedal_value;
-    uint16 steer_angle_deg;
+    uint8 accel_pedal_value;
+    uint8 brake_pedal_value;
+    uint8 steer_angle_deg;
 
     uint16 accel_valid;
     uint16 brake_valid;
