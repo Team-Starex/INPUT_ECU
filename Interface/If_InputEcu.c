@@ -44,14 +44,14 @@
  * raw = IF_INPUT_ACCEL_MIN  -> 0
  * raw = IF_INPUT_ACCEL_MAX  -> 255
  */
-#define IF_INPUT_ACCEL_MIN           (0x0780U)
-#define IF_INPUT_ACCEL_MAX           (0x0840U)
+#define IF_INPUT_ACCEL_MIN           (0x0750U)
+#define IF_INPUT_ACCEL_MAX           (0x0860U)
 
 /* 브레이크 홀센서 보정
  * raw = IF_INPUT_BRAKE_MIN  -> 0
  * raw = IF_INPUT_BRAKE_MAX  -> 255
  */
-#define IF_INPUT_BRAKE_MIN           (0x0780U)
+#define IF_INPUT_BRAKE_MIN           (0x0750U)
 #define IF_INPUT_BRAKE_MAX           (0x0860U)
 
 /* 핸들 보정
@@ -68,91 +68,91 @@
 
 /*********************************************************************************************************************/
 /*--------------------------------------------Private Variables/Constants--------------------------------------------*/
-static If_InputEcuData_t s_inputData;
+static if_input_ecu_data_t s_input_data;
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-static uint16 If_InputEcu_IsInRange(uint16 raw, uint16 min, uint16 max);
-static uint8 If_InputEcu_ClampAndScaleToU8(uint16 raw, uint16 min, uint16 max);
+static uint16 if_input_ecu_is_in_range(uint16 raw, uint16 min, uint16 max);
+static uint8 if_input_ecu_clamp_and_scale_to_u8(uint16 raw, uint16 min, uint16 max);
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
-void If_InputEcu_Init(void)
+void if_input_ecu_init(void)
 {
-    s_inputData.user_ack_button = Drv_Button_GetState();
+    s_input_data.user_ack_button = drv_button_get_state();
 
-    s_inputData.accel_pedal_value = 0U;
-    s_inputData.brake_pedal_value = 0U;
-    s_inputData.steer_angle_deg   = 0U;
+    s_input_data.accel_pedal_value = 0U;
+    s_input_data.brake_pedal_value = 0U;
+    s_input_data.steer_angle_deg   = 0U;
 
-    s_inputData.accel_valid = 0U;
-    s_inputData.brake_valid = 0U;
-    s_inputData.steer_valid = 0U;
+    s_input_data.accel_valid = 0U;
+    s_input_data.brake_valid = 0U;
+    s_input_data.steer_valid = 0U;
 
-    s_inputData.accel_raw = 0U;
-    s_inputData.brake_raw = 0U;
-    s_inputData.steer_raw = 0U;
+    s_input_data.accel_raw = 0U;
+    s_input_data.brake_raw = 0U;
+    s_input_data.steer_raw = 0U;
 }
 
-void If_InputEcu_Task(void)
+void if_input_ecu_task(void)
 {
-    uint16 accelRaw;
-    uint16 brakeRaw;
-    uint16 steerRaw;
+    uint16 accel_raw;
+    uint16 brake_raw;
+    uint16 steer_raw;
 
-    uint8 accelScaled;
-    uint8 brakeScaled;
-    uint8 steerScaled;
+    uint8 accel_scaled;
+    uint8 brake_scaled;
+    uint8 steer_scaled;
 
-    accelRaw = Drv_AdcInput_GetFiltered(DRV_ADC_ACCEL);
-    brakeRaw = Drv_AdcInput_GetFiltered(DRV_ADC_BRAKE);
-    steerRaw = Drv_AdcInput_GetFiltered(DRV_ADC_STEER);
+    accel_raw = drv_adc_input_get_filtered(DRV_ADC_ACCEL);
+    brake_raw = drv_adc_input_get_filtered(DRV_ADC_BRAKE);
+    steer_raw = drv_adc_input_get_filtered(DRV_ADC_STEER);
 
-    s_inputData.accel_raw = accelRaw;
-    s_inputData.brake_raw = brakeRaw;
-    s_inputData.steer_raw = steerRaw;
+    s_input_data.accel_raw = accel_raw;
+    s_input_data.brake_raw = brake_raw;
+    s_input_data.steer_raw = steer_raw;
 
     /* 확인 버튼: 누르면 1, 떼면 0 */
-    s_inputData.user_ack_button = Drv_Button_GetState();
+    s_input_data.user_ack_button = drv_button_get_state();
 
-    s_inputData.accel_valid = If_InputEcu_IsInRange(accelRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
-    s_inputData.brake_valid = If_InputEcu_IsInRange(brakeRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
-    s_inputData.steer_valid = If_InputEcu_IsInRange(steerRaw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
+    s_input_data.accel_valid = if_input_ecu_is_in_range(accel_raw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
+    s_input_data.brake_valid = if_input_ecu_is_in_range(brake_raw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
+    s_input_data.steer_valid = if_input_ecu_is_in_range(steer_raw, IF_INPUT_ADC_MIN, IF_INPUT_ADC_MAX);
 
     /********************************************/
     /* accel: MIN~MAX -> 0~255 scale            */
     /********************************************/
-    accelScaled = If_InputEcu_ClampAndScaleToU8(accelRaw, IF_INPUT_ACCEL_MIN, IF_INPUT_ACCEL_MAX);
-    s_inputData.accel_pedal_value = accelScaled;
+    accel_scaled = if_input_ecu_clamp_and_scale_to_u8(accel_raw, IF_INPUT_ACCEL_MIN, IF_INPUT_ACCEL_MAX);
+    s_input_data.accel_pedal_value = accel_scaled;
 
     /********************************************/
     /* brake: MIN~MAX -> 0~255 scale            */
     /********************************************/
-    brakeScaled = If_InputEcu_ClampAndScaleToU8(brakeRaw, IF_INPUT_BRAKE_MIN, IF_INPUT_BRAKE_MAX);
-    s_inputData.brake_pedal_value = brakeScaled;
+    brake_scaled = if_input_ecu_clamp_and_scale_to_u8(brake_raw, IF_INPUT_BRAKE_MIN, IF_INPUT_BRAKE_MAX);
+    s_input_data.brake_pedal_value = brake_scaled;
 
     /********************************************/
     /* steer: MIN~MAX -> 0~255 scale            */
     /********************************************/
-    steerScaled = If_InputEcu_ClampAndScaleToU8(steerRaw, IF_INPUT_STEER_MIN, IF_INPUT_STEER_MAX);
-    s_inputData.steer_angle_deg = steerScaled;
+    steer_scaled = if_input_ecu_clamp_and_scale_to_u8(steer_raw, IF_INPUT_STEER_MIN, IF_INPUT_STEER_MAX);
+    s_input_data.steer_angle_deg = steer_scaled;
 
-    Drv_Button_ClearEvents();
+    drv_button_clear_events();
 }
 
-const If_InputEcuData_t* If_InputEcu_GetData(void)
+const if_input_ecu_data_t* if_input_ecu_get_data(void)
 {
-    return &s_inputData;
+    return &s_input_data;
 }
 
-static uint16 If_InputEcu_IsInRange(uint16 raw, uint16 min, uint16 max)
+static uint16 if_input_ecu_is_in_range(uint16 raw, uint16 min, uint16 max)
 {
     return ((raw >= min) && (raw <= max)) ? 1U : 0U;
 }
 
-static uint8 If_InputEcu_ClampAndScaleToU8(uint16 raw, uint16 min, uint16 max)
+static uint8 if_input_ecu_clamp_and_scale_to_u8(uint16 raw, uint16 min, uint16 max)
 {
     uint16 clamped;
     uint16 normalized;

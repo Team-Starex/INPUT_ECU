@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- * \file App_InputEcu.h
+ * \file Drv_Button.h
  * \copyright Copyright (C) Infineon Technologies AG 2019
  * 
  * Use of this file is subject to the terms of use agreed between (i) you or the company in which ordinary course of 
@@ -25,11 +25,12 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
 
-#ifndef APP_INPUTECU_H_
-#define APP_INPUTECU_H_
+#ifndef DRV_BUTTON_H_
+#define DRV_BUTTON_H_
 
 /*********************************************************************************************************************/
 /*-----------------------------------------------------Includes------------------------------------------------------*/
+#include <stdbool.h>
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
@@ -50,9 +51,13 @@
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-void App_InputEcu_Init(void);
-void App_InputEcu_Task_10ms(void);
-void App_InputEcu_Task_10ms_CanTx(void);
+void drv_button_init(void);
+void drv_button_task(void);
+
+bool drv_button_get_state(void);
+bool drv_button_get_pressed_event(void);
+bool drv_button_get_released_event(void);
+void drv_button_clear_events(void);
 /*********************************************************************************************************************/
 
-#endif /* APP_INPUTECU_H_ */
+#endif /* DRV_BUTTON_H_ */

@@ -47,56 +47,56 @@
 
 /*********************************************************************************************************************/
 /*--------------------------------------------Private Variables/Constants--------------------------------------------*/
-static bool s_buttonState = false;
-static bool s_prevButtonState = false;
-static bool s_pressedEvent = false;
-static bool s_releasedEvent = false;
-static uint16 s_debounceCnt = 0U;
+static bool s_button_state = false;
+static bool s_prev_button_state = false;
+static bool s_pressed_event = false;
+static bool s_released_event = false;
+static uint16 s_debounce_cnt = 0U;
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-static bool Drv_Button_ReadRawPressed(void);
+static bool drv_button_read_raw_pressed(void);
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
-void Drv_Button_Init(void)
+void drv_button_init(void)
 {
     IfxPort_setPinModeInput(DRV_BUTTON_PORT, DRV_BUTTON_PIN, IfxPort_InputMode_pullUp);
 
-    s_buttonState = false;
-    s_prevButtonState = false;
-    s_pressedEvent = false;
-    s_releasedEvent = false;
-    s_debounceCnt = 0U;
+    s_button_state = false;
+    s_prev_button_state = false;
+    s_pressed_event = false;
+    s_released_event = false;
+    s_debounce_cnt = 0U;
 }
 
-void Drv_Button_Task(void)
+void drv_button_task(void)
 {
-    bool rawPressed;
-    bool newState;
+    bool raw_pressed;
+    bool new_state;
 
-    rawPressed = Drv_Button_ReadRawPressed();
-    newState = rawPressed;
+    raw_pressed = drv_button_read_raw_pressed();
+    new_state = raw_pressed;
 
-    if (newState != s_buttonState)
+    if (new_state != s_button_state)
     {
-        s_debounceCnt++;
+        s_debounce_cnt++;
 
-        if (s_debounceCnt >= DRV_BUTTON_DEBOUNCE_TICKS)
+        if (s_debounce_cnt >= DRV_BUTTON_DEBOUNCE_TICKS)
         {
-            s_prevButtonState = s_buttonState;
-            s_buttonState = newState;
-            s_debounceCnt = 0U;
+            s_prev_button_state = s_button_state;
+            s_button_state = new_state;
+            s_debounce_cnt = 0U;
 
-            if ((s_prevButtonState == false) && (s_buttonState == true))
+            if ((s_prev_button_state == false) && (s_button_state == true))
             {
-                s_pressedEvent = true;
+                s_pressed_event = true;
             }
-            else if ((s_prevButtonState == true) && (s_buttonState == false))
+            else if ((s_prev_button_state == true) && (s_button_state == false))
             {
-                s_releasedEvent = true;
+                s_released_event = true;
             }
             else
             {
@@ -106,37 +106,37 @@ void Drv_Button_Task(void)
     }
     else
     {
-        s_debounceCnt = 0U;
+        s_debounce_cnt = 0U;
     }
 }
 
-bool Drv_Button_GetState(void)
+bool drv_button_get_state(void)
 {
-    return s_buttonState;
+    return s_button_state;
 }
 
-bool Drv_Button_GetPressedEvent(void)
+bool drv_button_get_pressed_event(void)
 {
-    return s_pressedEvent;
+    return s_pressed_event;
 }
 
-bool Drv_Button_GetReleasedEvent(void)
+bool drv_button_get_released_event(void)
 {
-    return s_releasedEvent;
+    return s_released_event;
 }
 
-void Drv_Button_ClearEvents(void)
+void drv_button_clear_events(void)
 {
-    s_pressedEvent = false;
-    s_releasedEvent = false;
+    s_pressed_event = false;
+    s_released_event = false;
 }
 
-static bool Drv_Button_ReadRawPressed(void)
+static bool drv_button_read_raw_pressed(void)
 {
-    uint8 pinState;
+    uint8 pin_state;
 
-    pinState = (uint8)IfxPort_getPinState(DRV_BUTTON_PORT, DRV_BUTTON_PIN);
+    pin_state = (uint8)IfxPort_getPinState(DRV_BUTTON_PORT, DRV_BUTTON_PIN);
 
-    return (pinState == DRV_BUTTON_ACTIVE_LEVEL) ? true : false;
+    return (pin_state == DRV_BUTTON_ACTIVE_LEVEL) ? true : false;
 }
 /*********************************************************************************************************************/

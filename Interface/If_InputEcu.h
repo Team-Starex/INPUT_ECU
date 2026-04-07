@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- * \file Drv_Button.h
+ * \file If_InputEcu.h
  * \copyright Copyright (C) Infineon Technologies AG 2019
  * 
  * Use of this file is subject to the terms of use agreed between (i) you or the company in which ordinary course of 
@@ -9,7 +9,7 @@
  * Boost Software License - Version 1.0 - August 17th, 2003
  * 
  * Permission is hereby granted, free of charge, to any person or organization obtaining a copy of the software and 
- * accompanying documentation covered by this license (the "Software") to use, reproduce, display, distribute, execute,
+ * accompanying documentation covered by this license (the "Software"), to use, reproduce, display, distribute, execute,
  * and transmit the Software, and to prepare derivative works of the Software, and to permit third-parties to whom the
  * Software is furnished to do so, all subject to the following:
  * 
@@ -25,11 +25,12 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
 
-#ifndef DRV_BUTTON_H_
-#define DRV_BUTTON_H_
+#ifndef IF_INPUT_ECU_H_
+#define IF_INPUT_ECU_H_
 
 /*********************************************************************************************************************/
 /*-----------------------------------------------------Includes------------------------------------------------------*/
+#include "Platform_Types.h"
 #include <stdbool.h>
 /*********************************************************************************************************************/
 
@@ -43,6 +44,22 @@
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Data Structures---------------------------------------------------*/
+typedef struct
+{
+    bool  user_ack_button;
+
+    uint8 accel_pedal_value;
+    uint8 brake_pedal_value;
+    uint8 steer_angle_deg;
+
+    uint16 accel_valid;
+    uint16 brake_valid;
+    uint16 steer_valid;
+
+    uint16 accel_raw;
+    uint16 brake_raw;
+    uint16 steer_raw;
+} if_input_ecu_data_t;
 /*********************************************************************************************************************/
  
 /*********************************************************************************************************************/
@@ -51,13 +68,9 @@
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-void Drv_Button_Init(void);
-void Drv_Button_Task(void);
-
-bool Drv_Button_GetState(void);
-bool Drv_Button_GetPressedEvent(void);
-bool Drv_Button_GetReleasedEvent(void);
-void Drv_Button_ClearEvents(void);
+void if_input_ecu_init(void);
+void if_input_ecu_task(void);
+const if_input_ecu_data_t* if_input_ecu_get_data(void);
 /*********************************************************************************************************************/
 
-#endif /* DRV_BUTTON_H_ */
+#endif /* IF_INPUT_ECU_H_ */

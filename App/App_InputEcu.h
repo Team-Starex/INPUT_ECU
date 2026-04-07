@@ -1,5 +1,5 @@
 /**********************************************************************************************************************
- * \file If_InputEcu.h
+ * \file App_InputEcu.h
  * \copyright Copyright (C) Infineon Technologies AG 2019
  * 
  * Use of this file is subject to the terms of use agreed between (i) you or the company in which ordinary course of 
@@ -9,7 +9,7 @@
  * Boost Software License - Version 1.0 - August 17th, 2003
  * 
  * Permission is hereby granted, free of charge, to any person or organization obtaining a copy of the software and 
- * accompanying documentation covered by this license (the "Software"), to use, reproduce, display, distribute, execute,
+ * accompanying documentation covered by this license (the "Software") to use, reproduce, display, distribute, execute,
  * and transmit the Software, and to prepare derivative works of the Software, and to permit third-parties to whom the
  * Software is furnished to do so, all subject to the following:
  * 
@@ -25,13 +25,11 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
 
-#ifndef IF_INPUTECU_H_
-#define IF_INPUTECU_H_
+#ifndef APP_INPUT_ECU_H_
+#define APP_INPUT_ECU_H_
 
 /*********************************************************************************************************************/
 /*-----------------------------------------------------Includes------------------------------------------------------*/
-#include "Platform_Types.h"
-#include <stdbool.h>
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
@@ -44,22 +42,6 @@
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Data Structures---------------------------------------------------*/
-typedef struct
-{
-    bool  user_ack_button;
-
-    uint8 accel_pedal_value;
-    uint8 brake_pedal_value;
-    uint8 steer_angle_deg;
-
-    uint16 accel_valid;
-    uint16 brake_valid;
-    uint16 steer_valid;
-
-    uint16 accel_raw;
-    uint16 brake_raw;
-    uint16 steer_raw;
-} If_InputEcuData_t;
 /*********************************************************************************************************************/
  
 /*********************************************************************************************************************/
@@ -68,9 +50,9 @@ typedef struct
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-void If_InputEcu_Init(void);
-void If_InputEcu_Task(void);
-const If_InputEcuData_t* If_InputEcu_GetData(void);
+void app_input_ecu_init(void);
+void app_input_ecu_task_10ms(void);
+void app_input_ecu_task_10ms_can_tx(void);
 /*********************************************************************************************************************/
 
-#endif /* IF_INPUTECU_H_ */
+#endif /* APP_INPUT_ECU_H_ */
