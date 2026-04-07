@@ -12,7 +12,6 @@
 
 IfxCpu_syncEvent cpuSyncEvent = 0;
 
-
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
 #define LED_PORT                (&MODULE_P10)
@@ -23,24 +22,24 @@ IfxCpu_syncEvent cpuSyncEvent = 0;
 
 /*********************************************************************************************************************/
 /*-------------------------------------------------Global variables--------------------------------------------------*/
-volatile uint16 g_task10msCnt   = 0U;
+volatile uint16 g_task_10ms_cnt   = 0U;
 
 /* 디버그용 변수 */
-volatile boolean g_ledOn        = FALSE;
-volatile boolean g_buttonPulse  = FALSE;
+volatile boolean g_led_on        = FALSE;
+volatile boolean g_button_pulse  = FALSE;
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-static void InitLed(void);
-static void ToggleLed(void);
+static void init_led(void);
+static void toggle_led(void);
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
 void core0_main(void)
 {
-    const If_InputEcuData_t* inputData;
+    const if_input_ecu_data_t* input_data;
 
     IfxCpu_enableInterrupts();
 
@@ -57,21 +56,21 @@ void core0_main(void)
     IfxCpu_emitEvent(&cpuSyncEvent);
     IfxCpu_waitEvent(&cpuSyncEvent, 1);
 
-    InitLed();
-    App_InputEcu_Init();
+    init_led();
+    app_input_ecu_init();
 
     while (1)
     {
-        App_InputEcu_Task_10ms();
-        App_InputEcu_Task_10ms_CanTx();
-        g_task10msCnt++;
+        app_input_ecu_task_10ms();
+        app_input_ecu_task_10ms_can_tx();
+        g_task_10ms_cnt++;
 
-        inputData = If_InputEcu_GetData();
-        g_buttonPulse = (inputData->user_ack_button == true) ? TRUE : FALSE;
+        input_data = if_input_ecu_get_data();
+        g_button_pulse = (input_data->user_ack_button == true) ? TRUE : FALSE;
 
-        if (inputData->user_ack_button == true)
+        if (input_data->user_ack_button == true)
         {
-            ToggleLed();
+            toggle_led();
         }
 
         waitTime(IfxStm_getTicksFromMilliseconds(BSP_DEFAULT_TIMER, TASK_BASE_PERIOD_MS));
@@ -79,7 +78,7 @@ void core0_main(void)
 }
 
 /*********************************************************************************************************************/
-static void InitLed(void)
+static void init_led(void)
 {
     IfxPort_setPinModeOutput(LED_PORT,
                              LED_PIN,
@@ -87,21 +86,21 @@ static void InitLed(void)
                              IfxPort_OutputIdx_general);
 
     IfxPort_setPinLow(LED_PORT, LED_PIN);
-    g_ledOn = FALSE;
+    g_led_on = FALSE;
 }
 
 /*********************************************************************************************************************/
-static void ToggleLed(void)
+static void toggle_led(void)
 {
-    if (g_ledOn == FALSE)
+    if (g_led_on == FALSE)
     {
         IfxPort_setPinHigh(LED_PORT, LED_PIN);
-        g_ledOn = TRUE;
+        g_led_on = TRUE;
     }
     else
     {
         IfxPort_setPinLow(LED_PORT, LED_PIN);
-        g_ledOn = FALSE;
+        g_led_on = FALSE;
     }
 }
 /*********************************************************************************************************************/

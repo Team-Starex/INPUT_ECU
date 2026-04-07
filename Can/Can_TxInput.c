@@ -12,121 +12,121 @@
 
 /*********************************************************************************************************************/
 /*------------------------------------------------------Macros-------------------------------------------------------*/
-#define CAN_TXINPUT_NODE_ID                 IfxMultican_NodeId_0
-#define CAN_TXINPUT_BAUDRATE                (500000U)
-#define CAN_TXINPUT_TX_MSGOBJ_ID            (0U)
+#define CAN_TX_INPUT_NODE_ID                 IfxMultican_NodeId_0
+#define CAN_TX_INPUT_BAUDRATE                (500000U)
+#define CAN_TX_INPUT_TX_MSGOBJ_ID            (0U)
 
 /* ShieldBuddy TC275 CAN0 핀 */
-#define CAN_TXINPUT_RX_PIN                  IfxMultican_RXD0B_P20_7_IN
-#define CAN_TXINPUT_TX_PIN                  IfxMultican_TXD0_P20_8_OUT
+#define CAN_TX_INPUT_RX_PIN                  IfxMultican_RXD0B_P20_7_IN
+#define CAN_TX_INPUT_TX_PIN                  IfxMultican_TXD0_P20_8_OUT
 
 /* 외부 CAN 트랜시버 STB */
-#define CAN_TXINPUT_STB_PORT                (&MODULE_P20)
-#define CAN_TXINPUT_STB_PIN                 (6U)
+#define CAN_TX_INPUT_STB_PORT                (&MODULE_P20)
+#define CAN_TX_INPUT_STB_PIN                 (6U)
 
 /* busy일 때 너무 오래 막지 않기 위한 재시도 횟수 */
-#define CAN_TXINPUT_SEND_RETRY_MAX          (100U)
+#define CAN_TX_INPUT_SEND_RETRY_MAX          (100U)
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*--------------------------------------------Private Variables/Constants--------------------------------------------*/
-static IfxMultican_Can        g_multican;
-static IfxMultican_Can_Node   g_canNode;
-static IfxMultican_Can_MsgObj g_canTxMsgObj;
+static IfxMultican_Can        g_multi_can;
+static IfxMultican_Can_Node   g_can_node;
+static IfxMultican_Can_MsgObj g_can_tx_msg_obj;
 
-volatile uint32 g_canSendTry  = 0U;
-volatile uint32 g_canSendOk   = 0U;
-volatile uint32 g_canSendBusy = 0U;
-volatile uint32 g_canInitDone = 0U;
+volatile uint32 g_can_send_try  = 0U;
+volatile uint32 g_can_send_ok   = 0U;
+volatile uint32 g_can_send_busy = 0U;
+volatile uint32 g_can_init_done = 0U;
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-static void Can_TxInput_BuildMessage(const If_InputEcuData_t* data, IfxMultican_Message* message);
-static void Can_TxInput_InitTransceiver(void);
+static void can_tx_input_build_message(const if_input_ecu_data_t* data, IfxMultican_Message* message);
+static void can_tx_input_init_transceiver(void);
 /*********************************************************************************************************************/
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
-void Can_TxInput_Init(void)
+void can_tx_input_init(void)
 {
-    IfxMultican_Can_Config canConfig;
-    IfxMultican_Can_NodeConfig nodeConfig;
-    IfxMultican_Can_MsgObjConfig msgObjConfig;
+    IfxMultican_Can_Config can_config;
+    IfxMultican_Can_NodeConfig node_config;
+    IfxMultican_Can_MsgObjConfig msg_obj_config;
 
     /* 1) 외부 CAN 트랜시버를 normal mode로 전환 */
-    Can_TxInput_InitTransceiver();
+    can_tx_input_init_transceiver();
 
     /* 2) CAN module init */
-    IfxMultican_Can_initModuleConfig(&canConfig, &MODULE_CAN);
-    IfxMultican_Can_initModule(&g_multican, &canConfig);
+    IfxMultican_Can_initModuleConfig(&can_config, &MODULE_CAN);
+    IfxMultican_Can_initModule(&g_multi_can, &can_config);
 
     /* 3) CAN node init */
-    IfxMultican_Can_Node_initConfig(&nodeConfig, &g_multican);
-    nodeConfig.nodeId = CAN_TXINPUT_NODE_ID;
-    nodeConfig.baudrate = CAN_TXINPUT_BAUDRATE;
-    nodeConfig.rxPin = &CAN_TXINPUT_RX_PIN;
-    nodeConfig.txPin = &CAN_TXINPUT_TX_PIN;
-    nodeConfig.txPinMode = IfxPort_OutputMode_pushPull;
-    nodeConfig.pinDriver = IfxPort_PadDriver_cmosAutomotiveSpeed1;
-    nodeConfig.loopBackMode = FALSE;
+    IfxMultican_Can_Node_initConfig(&node_config, &g_multi_can);
+    node_config.nodeId = CAN_TX_INPUT_NODE_ID;
+    node_config.baudrate = CAN_TX_INPUT_BAUDRATE;
+    node_config.rxPin = &CAN_TX_INPUT_RX_PIN;
+    node_config.txPin = &CAN_TX_INPUT_TX_PIN;
+    node_config.txPinMode = IfxPort_OutputMode_pushPull;
+    node_config.pinDriver = IfxPort_PadDriver_cmosAutomotiveSpeed1;
+    node_config.loopBackMode = FALSE;
 
-    IfxMultican_Can_Node_init(&g_canNode, &nodeConfig);
+    IfxMultican_Can_Node_init(&g_can_node, &node_config);
 
     /* 4) TX message object init */
-    IfxMultican_Can_MsgObj_initConfig(&msgObjConfig, &g_canNode);
-    msgObjConfig.msgObjId = CAN_TXINPUT_TX_MSGOBJ_ID;
-    msgObjConfig.messageId = CAN_TXINPUT_MSG_ID_INPUT_DATA;
-    msgObjConfig.frame = IfxMultican_Frame_transmit;
+    IfxMultican_Can_MsgObj_initConfig(&msg_obj_config, &g_can_node);
+    msg_obj_config.msgObjId = CAN_TX_INPUT_TX_MSGOBJ_ID;
+    msg_obj_config.messageId = CAN_TX_INPUT_MSG_ID_INPUT_DATA;
+    msg_obj_config.frame = IfxMultican_Frame_transmit;
 
     /* 8바이트 송신 */
-    msgObjConfig.control.messageLen = IfxMultican_DataLengthCode_8;
-    msgObjConfig.control.extendedFrame = FALSE;
-    msgObjConfig.control.matchingId = TRUE;
+    msg_obj_config.control.messageLen = IfxMultican_DataLengthCode_8;
+    msg_obj_config.control.extendedFrame = FALSE;
+    msg_obj_config.control.matchingId = TRUE;
 
-    IfxMultican_Can_MsgObj_init(&g_canTxMsgObj, &msgObjConfig);
+    IfxMultican_Can_MsgObj_init(&g_can_tx_msg_obj, &msg_obj_config);
 
-    g_canInitDone = 1U;
+    g_can_init_done = 1U;
 }
 
-void Can_TxInput_Send(const If_InputEcuData_t* data)
+void can_tx_input_send(const if_input_ecu_data_t* data)
 {
     IfxMultican_Message message;
     IfxMultican_Status status;
-    uint32 retryCnt = 0U;
+    uint32 retry_cnt = 0U;
 
     if (data == NULL_PTR)
     {
         return;
     }
 
-    Can_TxInput_BuildMessage(data, &message);
+    can_tx_input_build_message(data, &message);
 
     do
     {
-        g_canSendTry++;
-        status = IfxMultican_Can_MsgObj_sendMessage(&g_canTxMsgObj, &message);
+        g_can_send_try++;
+        status = IfxMultican_Can_MsgObj_sendMessage(&g_can_tx_msg_obj, &message);
 
         if (status == IfxMultican_Status_ok)
         {
-            g_canSendOk++;
+            g_can_send_ok++;
             break;
         }
 
-        g_canSendBusy++;
-        retryCnt++;
-    } while (retryCnt < CAN_TXINPUT_SEND_RETRY_MAX);
+        g_can_send_busy++;
+        retry_cnt++;
+    } while (retry_cnt < CAN_TX_INPUT_SEND_RETRY_MAX);
 }
 
-static void Can_TxInput_BuildMessage(const If_InputEcuData_t* data, IfxMultican_Message* message)
+static void can_tx_input_build_message(const if_input_ecu_data_t* data, IfxMultican_Message* message)
 {
-    uint16 buttonValue;
-    uint16 brakeValue;
-    uint16 accelValue;
-    uint16 steerValue;
+    uint16 button_value;
+    uint16 brake_value;
+    uint16 accel_value;
+    uint16 steer_value;
 
-    uint32 dataLow;
-    uint32 dataHigh;
+    uint32 data_low;
+    uint32 data_high;
 
     /* 0~1 : 버튼
      * 2~3 : 브레이크
@@ -140,38 +140,38 @@ static void Can_TxInput_BuildMessage(const If_InputEcuData_t* data, IfxMultican_
      * little-endian 배치
      * byte0 = low byte, byte1 = high byte
      */
-    buttonValue = (data->user_ack_button == true) ? 1U : 0U;
-    brakeValue  = (uint16)data->brake_pedal_value;
-    accelValue  = (uint16)data->accel_pedal_value;
-    steerValue  = (uint16)data->steer_angle_deg;
+    button_value = (data->user_ack_button == true) ? 1U : 0U;
+    brake_value  = (uint16)data->brake_pedal_value;
+    accel_value  = (uint16)data->accel_pedal_value;
+    steer_value  = (uint16)data->steer_angle_deg;
 
-    dataLow =
-        ((uint32)(buttonValue & 0x00FFU)       ) |
-        ((uint32)((buttonValue >> 8) & 0x00FFU) << 8) |
-        ((uint32)(brakeValue & 0x00FFU)        << 16) |
-        ((uint32)((brakeValue >> 8) & 0x00FFU) << 24);
+    data_low =
+        ((uint32)(button_value & 0x00FFU)       ) |
+        ((uint32)((button_value >> 8) & 0x00FFU) << 8) |
+        ((uint32)(brake_value & 0x00FFU)        << 16) |
+        ((uint32)((brake_value >> 8) & 0x00FFU) << 24);
 
-    dataHigh =
-        ((uint32)(accelValue & 0x00FFU)        ) |
-        ((uint32)((accelValue >> 8) & 0x00FFU) << 8) |
-        ((uint32)(steerValue & 0x00FFU)        << 16) |
-        ((uint32)((steerValue >> 8) & 0x00FFU) << 24);
+    data_high =
+        ((uint32)(accel_value & 0x00FFU)        ) |
+        ((uint32)((accel_value >> 8) & 0x00FFU) << 8) |
+        ((uint32)(steer_value & 0x00FFU)        << 16) |
+        ((uint32)((steer_value >> 8) & 0x00FFU) << 24);
 
     IfxMultican_Message_init(message,
-                             CAN_TXINPUT_MSG_ID_INPUT_DATA,
-                             dataLow,
-                             dataHigh,
+                             CAN_TX_INPUT_MSG_ID_INPUT_DATA,
+                             data_low,
+                             data_high,
                              IfxMultican_DataLengthCode_8);
 }
 
-static void Can_TxInput_InitTransceiver(void)
+static void can_tx_input_init_transceiver(void)
 {
-    IfxPort_setPinModeOutput(CAN_TXINPUT_STB_PORT,
-                             CAN_TXINPUT_STB_PIN,
+    IfxPort_setPinModeOutput(CAN_TX_INPUT_STB_PORT,
+                             CAN_TX_INPUT_STB_PIN,
                              IfxPort_OutputMode_pushPull,
                              IfxPort_OutputIdx_general);
 
     /* LOW = normal mode */
-    IfxPort_setPinLow(CAN_TXINPUT_STB_PORT, CAN_TXINPUT_STB_PIN);
+    IfxPort_setPinLow(CAN_TX_INPUT_STB_PORT, CAN_TX_INPUT_STB_PIN);
 }
 /*********************************************************************************************************************/

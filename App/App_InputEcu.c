@@ -13,26 +13,26 @@
 
 /*********************************************************************************************************************/
 /*---------------------------------------------Function Implementations----------------------------------------------*/
-void App_InputEcu_Init(void)
+void app_input_ecu_init(void)
 {
-    Drv_Button_Init();
-    Drv_AdcInput_Init();
-    If_InputEcu_Init();
-    Can_TxInput_Init();
+    drv_button_init();
+    drv_adc_input_init();
+    if_input_ecu_init();
+    can_tx_input_init();
 }
 
-void App_InputEcu_Task_10ms(void)
+void app_input_ecu_task_10ms(void)
 {
-    Drv_Button_Task();
-    Drv_AdcInput_Task();
-    If_InputEcu_Task();
+    drv_button_task();
+    drv_adc_input_task();
+    if_input_ecu_task();
 }
 
-void App_InputEcu_Task_10ms_CanTx(void)
+void app_input_ecu_task_10ms_can_tx(void)
 {
-    const If_InputEcuData_t* inputData;
+    const if_input_ecu_data_t* input_data;
 
-    inputData = If_InputEcu_GetData();
-    Can_TxInput_Send(inputData);
+    input_data = if_input_ecu_get_data();
+    can_tx_input_send(input_data);
 }
 /*********************************************************************************************************************/
