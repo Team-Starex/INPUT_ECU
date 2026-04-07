@@ -51,13 +51,13 @@
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-void Drv_Button_Init(void);
-void Drv_Button_Task(void);
+void drv_button_init(void);
+void drv_button_task(void);
 
-bool Drv_Button_GetState(void);
-bool Drv_Button_GetPressedEvent(void);
-bool Drv_Button_GetReleasedEvent(void);
-void Drv_Button_ClearEvents(void);
+bool drv_button_get_state(void);
+bool drv_button_get_pressed_event(void);
+bool drv_button_get_released_event(void);
+void drv_button_clear_events(void);
 /*********************************************************************************************************************/
 
 #endif /* DRV_BUTTON_H_ */

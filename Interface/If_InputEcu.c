@@ -44,14 +44,14 @@
  * raw = IF_INPUT_ACCEL_MIN  -> 0
  * raw = IF_INPUT_ACCEL_MAX  -> 255
  */
-#define IF_INPUT_ACCEL_MIN           (0x0780U)
-#define IF_INPUT_ACCEL_MAX           (0x0840U)
+#define IF_INPUT_ACCEL_MIN           (0x0750U)
+#define IF_INPUT_ACCEL_MAX           (0x0860U)
 
 /* 브레이크 홀센서 보정
  * raw = IF_INPUT_BRAKE_MIN  -> 0
  * raw = IF_INPUT_BRAKE_MAX  -> 255
  */
-#define IF_INPUT_BRAKE_MIN           (0x0780U)
+#define IF_INPUT_BRAKE_MIN           (0x0750U)
 #define IF_INPUT_BRAKE_MAX           (0x0860U)
 
 /* 핸들 보정

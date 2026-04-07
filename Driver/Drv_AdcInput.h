@@ -25,8 +25,8 @@
  * IN THE SOFTWARE.
  *********************************************************************************************************************/
 
-#ifndef DRV_ADCINPUT_H_
-#define DRV_ADCINPUT_H_
+#ifndef DRV_ADC_INPUT_H_
+#define DRV_ADC_INPUT_H_
 
 /*********************************************************************************************************************/
 /*-----------------------------------------------------Includes------------------------------------------------------*/
@@ -49,7 +49,7 @@ typedef enum
     DRV_ADC_BRAKE,
     DRV_ADC_STEER,
     DRV_ADC_MAX
-} Drv_AdcChannel_t;
+} drv_adc_channel_t;
 /*********************************************************************************************************************/
  
 /*********************************************************************************************************************/
@@ -58,11 +58,11 @@ typedef enum
 
 /*********************************************************************************************************************/
 /*------------------------------------------------Function Prototypes------------------------------------------------*/
-void Drv_AdcInput_Init(void);
-void Drv_AdcInput_Task(void);
+void drv_adc_input_init(void);
+void drv_adc_input_task(void);
 
-uint16 Drv_AdcInput_GetRaw(Drv_AdcChannel_t ch);
-uint16 Drv_AdcInput_GetFiltered(Drv_AdcChannel_t ch);
+uint16 drv_adc_input_get_raw(drv_adc_channel_t ch);
+uint16 drv_adc_input_get_filtered(drv_adc_channel_t ch);
 /*********************************************************************************************************************/
 
-#endif /* DRV_ADCINPUT_H_ */
+#endif /* DRV_ADC_INPUT_H_ */
