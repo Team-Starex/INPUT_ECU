@@ -31,8 +31,6 @@
 ### CPU 메인
 
 - **Cpu0_Main.c**: CPU0 메인 진입점
-- **Cpu1_Main.c**: CPU1 메인 진입점
-- **Cpu2_Main.c**: CPU2 메인 진입점
 
 ### 설정 및 라이브러리
 
